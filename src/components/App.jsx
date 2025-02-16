@@ -29,27 +29,34 @@ function App() {
     localStorage.setItem(FEEDBACK_STORAGE_KEY, JSON.stringify(feedbacks));
   }, [feedbacks]);
 
-  const handleVote = type => {
-    setFeedbacks(prev => ({ ...prev, [type]: prev[type] + 1 }));
+  const handleFeedback = feedbackType => {
+    setFeedbacks(prev => ({ ...prev, [feedbackType]: prev[feedbackType] + 1 }));
   };
 
   const handleReset = () => {
     setFeedbacks(defaultFeedbacks);
   };
 
-  const hasFeedback = Object.values(feedbacks).some(value => value > 0);
+  const totalFeedback = Object.values(feedbacks).reduce(
+    (acc, count) => acc + count,
+    0
+  );
+
+  const positiveFeedback = Math.round((feedbacks.good / totalFeedback) * 100);
 
   return (
     <div className={css.container}>
       <Description />
       <Options
-        hasFeedback={hasFeedback}
-        onVote={handleVote}
+        hasFeedback={!!totalFeedback}
+        onVote={handleFeedback}
         onReset={handleReset}
       />
-      {hasFeedback ? (
+      {totalFeedback ? (
         <Feedback
-          feedback={feedbacks}
+          feedbacks={feedbacks}
+          total={totalFeedback}
+          positivePercentage={positiveFeedback}
         />
       ) : (
         <Notification>No feedback yet</Notification>

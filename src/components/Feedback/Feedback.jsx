@@ -1,15 +1,8 @@
 import css from "./Feedback.module.css";
 
-export default function Feedback({ feedback }) {
+export default function Feedback({ feedbacks, total, positivePercentage }) {
 
-  const { good, neutral, bad } = feedback;
-
-  const total = Object.values(feedback).reduce(
-    (acc, count) => acc + count,
-    0
-  );
-
-  const positive = Math.round(((good + neutral) / total) * 100);
+  const { good, neutral, bad } = feedbacks;
 
   return (
     <ul className={css.feedback}>
@@ -20,13 +13,13 @@ export default function Feedback({ feedback }) {
         Neutral: {neutral}
       </li>
       <li>
-        Bed: {bad}
+        Bad: {bad}
       </li>
       <li>
         Total: {total}
       </li>
       <li>
-        Positive: {positive}%
+        Positive: {positivePercentage}%
       </li>
     </ul>
   );
