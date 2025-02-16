@@ -1,0 +1,19 @@
+.options {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: calc(175px * 2 + 1rem);
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid var(--text-color);
+  background-color: var(--bg-color);
+  border-radius: 4px;
+  text-align: center;
+  text-transform: capitalize;
+  cursor: pointer;
+}
